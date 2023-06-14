@@ -4,7 +4,10 @@ import {motion} from 'framer-motion'
 type Props = {}
 
 function Projects({}: Props) {
-    const Projects = [1,2,3,4,5]
+    const openInNewTab = (url) => {
+        window.open(url, "_blank", "noreferrer");
+      };
+    const Projects = [{name: 'Text Analyzer', src: 'https://i.ibb.co/6Frprjt/reactjs-word-counter-1-copy.png', github: 'https://github.com/vishist-br/ReactProjects/tree/main/SideProjects/textAnalyzer/text-analyzer'}, {name: 'Password Generator', src: 'https://i.ibb.co/bHcYfzg/Screenshot-2023-06-14-at-11-21-42-PM.png', github: 'https://github.com/vishist-br/ReactProjects/tree/main/SideProjects/password-g'}]
   return (
     <div className='relative flex overflow-hidden flex-col text-left md:flex-row max-w-full justify-evenly mx-auto items-center z-0'>
         <h3 className='absolute top-20 uppercase tracking-[20px] text-gray-500 text-2xl'>Projects</h3>
@@ -27,10 +30,10 @@ function Projects({}: Props) {
                     viewport={{
                         once :true
                     }}
-                    src="https://i.ibb.co/5sZqT4V/reactjs-word-counter.png" />
+                    src={project.src} />
                     <div className='space-y-10 px-0 md:px-10 max-w-6xl'>
-                        <h4 className='text-2xl font-semibold text-center'>Project {i+1} Text Analyzer</h4>
-                        <p className="text-lg text-center md:text-left">It is an easy challenge in which you have to build logic for a text analyzer that will count the number of words, letters, paragraphs, and more of the text written in the textarea.</p>
+                        <h4 className='text-2xl font-semibold text-center'>{project.name}</h4>
+                        <button className='bg-[#F7AB0A] py-5 px-10 rounded-md text-black font-bold' onClick={() => openInNewTab(`${project.github}`)} >Github</button>
                     </div>
                 </div>
         ))}

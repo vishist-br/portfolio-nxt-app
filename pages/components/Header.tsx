@@ -24,9 +24,8 @@ function Header({}: Props) {
         }}
         className="flex flex-row items-center">
          {/* Social Icons */}
-         <SocialIcon url="https://github.com" fgColor="gray" bgColor="transparent"/>
-         <SocialIcon url="https://linkedin.com" fgColor="gray" bgColor="transparent"/>
-         <SocialIcon url="https://github.com" fgColor="gray" bgColor="transparent"/>
+         <SocialIcon url="https://github.com/vishist-br" fgColor="gray" bgColor="transparent"/>
+         <SocialIcon url="https://www.linkedin.com/in/vishist-bhoopalam-b6a44814a/" fgColor="gray" bgColor="transparent"/>
         </motion.div>
         <motion.div initial={{
             x: 500,

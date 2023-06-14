@@ -34,7 +34,7 @@ function About({}: Props) {
              Here is a <span className='underline decoration-[#F7AB0A]/50'>little</span> background
             </h4>
             <p className='text-sm'>
-            Im Vishist, A Full Stack Developer with 4 years of experience in Front-End Engineering, Backend Development, and Automation. Proficient in JavaScript, Typescript, HTML, CSS, React, Redux, Python, Flask, Postgres, and Snowflake. Experienced in creating responsive and user-friendly interfaces, managing state, handling data fetching, and ensuring code scalability and maintainability. Has experience in managing and mentoring team members.
+            A Full Stack Developer with 4 years of experience in Front-End Engineering, Backend Development, and Automation. Proficient in JavaScript, Typescript, HTML, CSS, React, Redux, Python, Flask, Postgres, and Snowflake. Experienced in creating responsive and user-friendly interfaces, managing state, handling data fetching, and ensuring code scalability and maintainability. Has experience in managing and mentoring team members.
             </p>
         </div>
     </motion.div>
