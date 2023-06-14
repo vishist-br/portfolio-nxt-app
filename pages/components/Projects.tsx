@@ -4,7 +4,7 @@ import {motion} from 'framer-motion'
 type Props = {}
 
 function Projects({}: Props) {
-    const openInNewTab = (url) => {
+    const openInNewTab = (url:any) => {
         window.open(url, "_blank", "noreferrer");
       };
     const Projects = [{name: 'Text Analyzer', src: 'https://i.ibb.co/6Frprjt/reactjs-word-counter-1-copy.png', github: 'https://github.com/vishist-br/ReactProjects/tree/main/SideProjects/textAnalyzer/text-analyzer'}, {name: 'Password Generator', src: 'https://i.ibb.co/bHcYfzg/Screenshot-2023-06-14-at-11-21-42-PM.png', github: 'https://github.com/vishist-br/ReactProjects/tree/main/SideProjects/password-g'}]
