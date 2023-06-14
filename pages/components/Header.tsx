@@ -28,10 +28,6 @@ function Header({}: Props) {
          <SocialIcon url="https://linkedin.com" fgColor="gray" bgColor="transparent"/>
          <SocialIcon url="https://github.com" fgColor="gray" bgColor="transparent"/>
         </motion.div>
-
-        <a href={
-            '#contact'
-        }>
         <motion.div initial={{
             x: 500,
             opacity: 0,
@@ -47,7 +43,6 @@ function Header({}: Props) {
         <SocialIcon className="cursor-pointer" network="email" fgColor="gray" bgColor="transparent"/>
         <p className='uppercase hidden md:inline-flex text-sm text-gray-400'> get in touch</p>
         </motion.div>
-        </a>
     </header>
   )
 }
