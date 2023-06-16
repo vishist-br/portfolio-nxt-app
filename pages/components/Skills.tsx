@@ -13,9 +13,9 @@ function Skills({}: Props) {
         opacity: 1
     }} transition={{
         duration: 1.5
-    }} className='h-screen flex relative flex-col text-center md:text-left xl:flex-row max-width-[2000px] xl:px-10 min-height-screen justify-center xl:space-y-0 mx-auto items-center'>
-          <h3 className='absolute top-20 uppercase tracking-[20px] text-gray-500 text-2xl'>Skills</h3>
-        <div className='grid grid-cols-4 gap-5'>
+    }} className='h-screen y-spacing-2 flex relative flex-col text-center  min-height-screen justify-center mx-auto items-center xl:space-y-10'>
+        <h3 className='absolute top-20 uppercase tracking-[20px] text-gray-500 text-2xl'>Skills</h3>
+        <div className="grid grid-rows-4 grid-flow-col gap-4">
         <Skill direntionLeft={false} iconUrl={'https://i.ibb.co/ynYpV6b/js.png'} />
         <Skill direntionLeft={false} iconUrl={'https://i.ibb.co/yP6htM8/react-2-icon.jpg"'} />
         <Skill direntionLeft={false} iconUrl={'https://i.ibb.co/C1Hycc9/html-logo.png'} />
