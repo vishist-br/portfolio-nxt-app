@@ -312,6 +312,7 @@ export const experience: Role[] = [
     company: "Elanco",
     title: "Senior Software Engineer",
     period: "Dec 2023 – present",
+    note: "1 promotion",
     items: [
       {
         name: "AI documentation portal",

@@ -23,7 +23,7 @@ Senior software engineer with 7 years building production web applications, back
 
 ### Elanco — Senior Software Engineer, Bengaluru
 
-December 2023 – Present
+December 2023 – Present · 1 promotion
 
 **Engineering Accelerator team (improving engineering performance)**
 
