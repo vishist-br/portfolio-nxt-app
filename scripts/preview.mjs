@@ -3,6 +3,7 @@
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
+import { createGzip } from "node:zlib";
 
 const BASE = "/portfolio-nxt-app";
 const ROOT = join(import.meta.dirname, "..", "out");
@@ -23,8 +24,12 @@ const TYPES = {
 
 createServer((req, res) => {
   const path = decodeURIComponent(new URL(req.url, "http://x").pathname);
-  if (!path.startsWith(BASE)) {
+  if (path === "/") {
     res.writeHead(302, { Location: `${BASE}/` }).end();
+    return;
+  }
+  if (!path.startsWith(BASE)) {
+    res.writeHead(404).end("Not found");
     return;
   }
   let file = join(ROOT, normalize(path.slice(BASE.length)));
@@ -38,6 +43,13 @@ createServer((req, res) => {
     createReadStream(join(ROOT, "404.html")).pipe(res);
     return;
   }
-  res.writeHead(200, { "Content-Type": TYPES[extname(file)] ?? "application/octet-stream" });
+  const type = TYPES[extname(file)] ?? "application/octet-stream";
+  // GitHub Pages gzips text responses; do the same so local measurements are comparable.
+  if (/text|javascript|json|xml/.test(type) && /\bgzip\b/.test(req.headers["accept-encoding"] ?? "")) {
+    res.writeHead(200, { "Content-Type": type, "Content-Encoding": "gzip" });
+    createReadStream(file).pipe(createGzip()).pipe(res);
+    return;
+  }
+  res.writeHead(200, { "Content-Type": type });
   createReadStream(file).pipe(res);
 }).listen(PORT, () => console.log(`Preview: http://localhost:${PORT}${BASE}/`));
