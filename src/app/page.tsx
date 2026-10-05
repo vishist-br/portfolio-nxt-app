@@ -129,7 +129,15 @@ function Hero() {
         >
           {hero.title.map((line, i) => (
             <span key={line} className="rise block" style={{ ["--i" as string]: i + 1 }}>
-              {line === hero.accent ? <span className="text-accent-ink">{line}</span> : line}
+              {line.includes(hero.accent) ? (
+                <>
+                  {line.split(hero.accent)[0]}
+                  <span className="text-accent-ink">{hero.accent}</span>
+                  {line.split(hero.accent)[1]}
+                </>
+              ) : (
+                line
+              )}
             </span>
           ))}
         </h1>
