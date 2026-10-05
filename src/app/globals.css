@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* Dark is the default; [data-theme="light"] is set by the toggle. */
+:root {
+  --bg: #0b0c0a;
+  --surface: #131510;
+  --surface-2: #1a1d16;
+  --line: rgb(255 255 255 / 0.1);
+  --line-strong: rgb(255 255 255 / 0.22);
+  --text: #f2f3ee;
+  --muted: #a6a99e;
+  --accent: #c8f542;
+  --accent-ink: #c8f542;
+  --on-accent: #0b0c0a;
+  --grid: rgb(255 255 255 / 0.055);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f5f5ef;
+  --surface: #ffffff;
+  --surface-2: #ecece4;
+  --line: rgb(0 0 0 / 0.12);
+  --line-strong: rgb(0 0 0 / 0.3);
+  --text: #12130f;
+  --muted: #55584e;
+  --accent: #c8f542;
+  --accent-ink: #3f6212;
+  --on-accent: #12130f;
+  --grid: rgb(0 0 0 / 0.06);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --font-display: var(--ff-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--ff-code), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .wrap {
+    padding-inline: 2.5rem;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---- Hero background: grid that fades out, plus two slow accent glows ---- */
+.hero-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
+  animation: grid-drift 24s linear infinite;
+}
+.hero-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  background: var(--accent);
+  opacity: 0.16;
+  will-change: transform;
+}
+:root[data-theme="light"] .hero-glow {
+  opacity: 0.45;
+}
+.hero-glow-a {
+  animation: glow-a 16s ease-in-out infinite alternate;
+}
+.hero-glow-b {
+  animation: glow-b 20s ease-in-out infinite alternate;
+}
+@keyframes grid-drift {
+  to {
+    background-position: 56px 56px;
+  }
+}
+@keyframes glow-a {
+  to {
+    transform: translate3d(12%, 18%, 0) scale(1.15);
+  }
+}
+@keyframes glow-b {
+  to {
+    transform: translate3d(-16%, -10%, 0) scale(0.9);
+  }
+}
+
+/* ---- Hero text reveal: CSS only, so it runs before JavaScript loads ---- */
+.rise {
+  animation: rise 560ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+}
+
+/* ---- Diagram: dashes that travel along each arrow ---- */
+.flow-line {
+  stroke-dasharray: 5 7;
+  animation: flow 900ms linear infinite;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .flow-line {
+    animation: none !important;
+  }
+}
+
+/* ---- Tilt cards: highlight that follows the mouse ---- */
+.tilt {
+  transform-style: preserve-3d;
+}
+.tilt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  background: radial-gradient(
+    420px circle at var(--gx, 50%) var(--gy, 50%),
+    color-mix(in srgb, var(--accent) 16%, transparent),
+    transparent 60%
+  );
+}
+@media (hover: hover) {
+  .tilt:hover::after {
+    opacity: 1;
+  }
+}
+
+/* ---- Page transition (app/template.tsx remounts on every navigation) ---- */
+.page-enter {
+  animation: page-enter 280ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+}

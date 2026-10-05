@@ -90,3 +90,11 @@ bower_components
 psd
 thumb
 sketch
+
+# portfolio v2
+node_modules/
+.next/
+out/
+.DS_Store
+next-env.d.ts
+*.tsbuildinfo
