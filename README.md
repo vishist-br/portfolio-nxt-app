@@ -1,38 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Portfolio
 
-## Getting Started
+The portfolio of BR Vishist, live at <https://vishist-br.github.io/portfolio-nxt-app/>.
 
-First, run the development server:
+Next.js (App Router, static export), TypeScript, Tailwind CSS and Framer Motion,
+deployed to GitHub Pages by GitHub Actions.
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000/portfolio-nxt-app/>. The site lives under the
+`/portfolio-nxt-app` base path locally too, so it behaves the same as on GitHub Pages.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+To check the exact files that get deployed:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npm run build
+npm run preview
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Edit the content
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Every word on the site is in [`src/content/site.ts`](src/content/site.ts): hero, pillars,
+case studies (including their diagrams), experience, skills and contact. The file is typed,
+so a missing field fails the build instead of rendering a broken page.
 
-## Learn More
+Search that file for `todo:` to see the facts each case study is still missing. Those
+notes are never rendered.
 
-To learn more about Next.js, take a look at the following resources:
+## Update the CV
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Every "Download CV" button points at one file, `public/cv.pdf`. To publish a new
+version, replace that file and push to `main`. Nothing else needs to change.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+There are two ways to produce it:
 
-## Deploy on Vercel
+1. **Drop in a PDF.** Export the CV from wherever you keep it and save it as
+   `public/cv.pdf`.
+2. **Edit the text and regenerate.** Change [`cv/cv.md`](cv/cv.md), then run
+   `npm run cv`. This renders the Markdown to `public/cv.pdf` using your local Chrome.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The build in CI fails if `cv.pdf` is missing.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Deploy
+
+[`deploy.yml`](.github/workflows/deploy.yml) builds on every pull request and deploys on
+every push to `main`. In the repository settings, Pages must have **Source: GitHub Actions**.
+
+The base path is set in [`next.config.ts`](next.config.ts). If the site moves to a custom
+domain, build with `NEXT_PUBLIC_BASE_PATH=""` and update `site.url` in the content file.
+
+## Other scripts
+
+| Command | What it does |
+| --- | --- |
+| `npm run typecheck` | Type-checks without building. |
+| `npm run og` | Regenerates `public/og.png`, the link-preview image. |
